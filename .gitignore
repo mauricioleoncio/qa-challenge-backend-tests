@@ -1,0 +1,34 @@
+# vscode
+.vscode
+
+# Eclipse
+.settings
+.classpath
+.project
+.metadata
+.env
+
+# WebStorm & IntellijIDEA
+*.iml
+.idea/
+
+# Gradlew Build  
+.gradle/
+build/
+src/main/resources/static/
+
+# Dev files
+documentation/
+dist/
+node_modules/
+npm-cache/
+.tmp/
+test/reporters/
+app/bower_components/
+app/scripts/templates.js
+*.orig
+*.log
+coverage
+screenshots
+videos
+cypress/results
