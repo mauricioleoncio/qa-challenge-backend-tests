@@ -1,5 +1,25 @@
 {
-  "name": "Using fixtures to represent data",
-  "email": "hello@cypress.io",
-  "body": "Fixtures are a great way to mock data for responses to routes"
+  "invalidRequests": [
+    {
+      "requestName": "registerWithBlankName",
+      "property": "name",
+      "errorMessage": "The name field is required.",
+      "body": {
+        "name": "",
+        "email": "valid-email@just.eat",
+        "password": "password",
+        "password_confirmation": "password"
+      }
+    },
+    {
+      "requestName": "registerWithoutNameField",
+      "property": "name",
+      "errorMessage": "The name field is required.",
+      "body": {
+        "email": "valid-email@just.eat",
+        "password": "password",
+        "password_confirmation": "password"
+      }
+    }
+  ]
 }

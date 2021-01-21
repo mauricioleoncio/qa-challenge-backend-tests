@@ -1,0 +1,17 @@
+[
+  {
+    "registerWithBlankName": {
+      "name": "",
+      "email": "valid-email@just.eat",
+      "password": "password",
+      "password_confirmation": "password"
+    }
+  },
+  {
+    "registerWithoutNameField": {
+      "email": "valid-email@just.eat",
+      "password": "password",
+      "password_confirmation": "password"
+    }
+  }
+]
