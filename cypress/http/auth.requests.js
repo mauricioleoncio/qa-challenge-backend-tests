@@ -1,9 +1,7 @@
 import { BaseHttpRequest } from "./base.requests";
 
-const baseHttpRequest = new BaseHttpRequest();
-
-export class AuthApi {
+export class AuthApi extends BaseHttpRequest {
   getToken(requestBody) {
-    return baseHttpRequest.post("/auth/login", requestBody, '');
+    return this.post("/auth/login", requestBody, "");
   }
 }

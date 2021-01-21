@@ -6,13 +6,12 @@ describe("Tasks API tests", function () {
   const authApi = new AuthApi();
   const tasksApi = new TasksApi();
 
-  it("Should create a task successfully", function () {
-    const requestBody = {
-      email: "test@test.com",
-      password: "4nak1n",
-    };
+  before(function () {
+    cy.fixture("auth").as("auth");
+  });
 
-    authApi.getToken(requestBody).as("login");
+  it("Should create a task successfully", function () {
+    authApi.getToken(this.auth.requestBody).as("login");
 
     cy.get("@login")
       .should(spok({ status: 201 }))

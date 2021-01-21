@@ -1,9 +1,7 @@
 import { BaseHttpRequest } from "./base.requests";
 
-const baseHttpRequest = new BaseHttpRequest();
-
-export class TasksApi {
+export class TasksApi extends BaseHttpRequest {
   createTask(requestBody, jwtToken) {
-    return baseHttpRequest.post("/tasks", requestBody, jwtToken);
+    return this.post("/tasks", requestBody, jwtToken);
   }
 }
