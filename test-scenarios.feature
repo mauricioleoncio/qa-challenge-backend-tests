@@ -36,20 +36,23 @@ Dado que um usuário quer se registrar
 Quando ele informa um 'name' em branco
 Então a aplicação deve retornar mensagem de erro 'The given data was invalid'
 E o erro 'The name field is required.'
+OK
 
 Dado que um usuário quer se registrar
 Quando não informa o campo 'name'
 Então a aplicação deve retornar mensagem de erro 'The given data was invalid'
 E o erro 'The name field is required.'
+OK
 
 Dado que um usuário quer se registrar
 Quando ele informa um 'name' com > 255 chars
 Então a aplicação deve retornar mensagem de erro 'The name may not be greater than 255 characters.'
+OK
 
 Dado que um usuário quer se registrar
 Quando ele informa um 'name' contendo characters != 'letters, numbers, dashes and underscores'
 Então a aplicação deve retornar mensagem de erro 'The name may only contain letters, numbers, dashes and underscores.' 
-
+OK
 
 
 ## EMAIL FIELD ###
@@ -61,15 +64,20 @@ Dado que um usuário quer se registrar
 Quando ele informa um 'email' em branco
 Então a aplicação deve retornar mensagem de erro 'The given data was invalid.'
 E o erro 'The email field is required.'
+OK
+
 
 Dado que um usuário quer se registrar
 Quando não informa o campo 'email'
 Então a aplicação deve retornar mensagem de erro 'The given data was invalid'
 E o erro 'The email field is required.'
+OK
 
 Dado que um usuário quer se registrar
 Quando ele informa um 'email' com > 255 chars
 Então a aplicação deve retornar mensagem de erro 'The email may not be greater than 255 characters.'
+OK
+
 
 Dado que um usuário quer se registrar
 Quando ele informar um 'email' com characters inválido (https://stackoverflow.com/questions/2049502/what-characters-are-allowed-in-an-email-address) #criar regex
@@ -81,30 +89,39 @@ Dado que um usuário quer se registrar
 Quando ele informa um 'password' em branco
 Então a aplicação deve retornar mensagem de erro 'The given data was invalid.'
 E o erro 'The password field is required.'
+OK
 
 Dado que um usuário quer se registrar
 Quando não informa o campo 'password'
 Então a aplicação deve retornar mensagem de erro 'The given data was invalid'
 E o erro 'The password field is required.'
+OK
 
 Dado que um usuário quer se registrar
 Quando ele informa um 'password' com < 8 chars
 Então a aplicação deve retornar mensagem de erro 'The password must be at least 8 characters.'
+OK
 
 Dado que um usuário quer se registrar
 Quando ele informa um 'password'
 E informa um 'password_confirmation' diferente do 'password'
 Então a aplicação deve retornar mensagem de erro 'The password confirmation does not match.'
+OK
+
 
 Dado que um usuário quer se registrar
 Quando ele informa um 'password'
 E informa um 'password_confirmation' em branco
 Então a aplicação deve retornar mensagem de erro 'The password confirmation does not match.'
+OK
+
 
 Dado que um usuário quer se registrar
 Quando ele informa um 'password'
 E não informa um 'password_confirmation' 
 Então a aplicação deve retornar mensagem de erro 'The password confirmation does not match.'
+OK
+
 
 Dado que um usuário quer se registrar
 Quando ele informa um 'password' com > 255 chars
@@ -123,4 +140,4 @@ E a lista de erro deve conter a mensagem 'The name may only contain letters, num
 E a mensagem de erro 'The email must be a valid email address.'
 E a mensagem de erro 'The password must be at least 8 characters.'
 E a mensagem de erro 'The password confirmation does not match.'
-
+OK

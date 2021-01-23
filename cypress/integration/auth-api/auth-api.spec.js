@@ -32,27 +32,16 @@ describe("Auth API tests", function () {
       describe("Happy flows", function () {});
 
       describe("Unhappy flows", function () {
-        const invalidRequestBodies = require("../../fixtures/example");
+        const fixture = require("../../fixtures/example");
 
-        invalidRequestBodies.invalidRequests.forEach((req) => {
-          it(`Should fail when the body is ${req.requestName}`, function () {
+        fixture.invalidRequests.forEach((req) => {
+          it(`Should fail when ${req.scenario}`, function () {
             authApi.register(req.body, false).as("register");
-            cy.get("@register").should(
-              spok({
-                status: 422,
-                // body: {
-                //   erros: {
-                //     req: {
-                //       0: req.errorMessage,
-                //     },
-                //   },
-                // },
-              })
-            );
+            cy.get("@register").should((res) => {
+              expect(res.body.errors).to.be.deep.eq(req.errors);
+            });
           });
         });
-
-        it("Should fail when user does not fill the name field", function () {});
       });
     });
   });

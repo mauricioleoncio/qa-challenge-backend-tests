@@ -1,9 +1,10 @@
 {
   "invalidRequests": [
     {
-      "requestName": "registerWithBlankName",
-      "property": "name",
-      "errorMessage": "The name field is required.",
+      "scenario": "client sends a blank name",
+      "errors": {
+        "name": ["The name field is required."]
+      },
       "body": {
         "name": "",
         "email": "valid-email@just.eat",
@@ -12,13 +13,176 @@
       }
     },
     {
-      "requestName": "registerWithoutNameField",
-      "property": "name",
-      "errorMessage": "The name field is required.",
+      "scenario": "client does not send the name field",
+      "errors": {
+        "name": ["The name field is required."]
+      },
       "body": {
         "email": "valid-email@just.eat",
         "password": "password",
         "password_confirmation": "password"
+      }
+    },
+    {
+      "scenario": "client sends a name with more than 255 chars",
+      "errors": {
+        "name": ["The name may not be greater than 255 characters."]
+      },
+      "body": {
+        "name": "fHYNCHgoY7iImxDqpQL9OeXrC9TvqmqzKHJfY4dm8i7pnBQN2oQiTyNbmZCdgiRLmwWPfTRFAz4Coezn6Xw5gmsE5vItQvpgE6HejYwU9rSyyDee0HWsshOWA1eU7ssRnf8SYszo3deSrPekZsoVQfXkcJfFRGUAOcJIQAIGeIedckCWf4Xce3FHGSgASASq525TPeh7wEB85gh1xtCH68Yi9cj8iIiqfupW8wMZTvR2hD1ZrvPUgZBYpLLs0Q3Q",
+        "email": "valid-email@just.eat",
+        "password": "password",
+        "password_confirmation": "password"
+      }
+    },
+    {
+      "scenario": "client sends a name containing characters != of 'letters, numbers, dashes and underscores'",
+      "errors": {
+        "name": [
+          "The name may only contain letters, numbers, dashes and underscores."
+        ]
+      },
+      "body": {
+        "name": "Invalid Name",
+        "email": "valid-email@just.eat",
+        "password": "password",
+        "password_confirmation": "password"
+      }
+    },
+    {
+      "scenario": "client sends a blank email",
+      "errors": {
+        "email": ["The email field is required."]
+      },
+      "body": {
+        "name": "ValidName",
+        "email": "",
+        "password": "password",
+        "password_confirmation": "password"
+      }
+    },
+    {
+      "scenario": "client does not send the email field",
+      "errors": {
+        "email": ["The email field is required."]
+      },
+      "body": {
+        "name": "ValidName",
+        "password": "password",
+        "password_confirmation": "password"
+      }
+    },
+    {
+      "scenario": "client sends a email with more than 255 chars",
+      "errors": {
+        "email": ["The email may not be greater than 255 characters."]
+      },
+      "body": {
+        "name": "ValidName",
+        "email": "fHYNCHgoY7iImxDqpQL9OeXrC9TvqmqzKHJfY4dm8i7pnBQN2oQiTyNbmZCdgiRLmwWPfTRFAz4Coezn6Xw5gmsE5vItQvpgE6HejYwU9rSyyDee0HWsshOWA1eU7ssRnf8SYszo3deSrPekZsoVQfXkcJfFRGUAOcJIQAIGeIedckCWf4Xce3FHGSgASASq525TPeh7wEB85gh1xtCH68Yi9cj8iIiqfupW8wMZTvR2hD1ZrvPUgZBYpLLs0Q3Q@just.eat",
+        "password": "password",
+        "password_confirmation": "password"
+      }
+    },
+    {
+      "scenario": "client sends a blank password",
+      "errors": {
+        "password": ["The password field is required."]
+      },
+      "body": {
+        "name": "ValidName",
+        "email": "valid-email@just.eat",
+        "password": "",
+        "password_confirmation": "password"
+      }
+    },
+    {
+      "scenario": "client does not send the password field",
+      "errors": {
+        "password": ["The password field is required."]
+      },
+      "body": {
+        "name": "ValidName",
+        "email": "valid-email@just.eat",
+        "password_confirmation": "password"
+      }
+    },
+    {
+      "scenario": "client sends a password with less than 8 chars",
+      "errors": {
+        "password": ["The password must be at least 8 characters."]
+      },
+      "body": {
+        "name": "ValidName",
+        "email": "valid-email@just.eat",
+        "password": "a",
+        "password_confirmation": "a"
+      }
+    },
+    {
+      "scenario": "client sends a password different from the password_confirmation",
+      "errors": {
+        "password": ["The password confirmation does not match."]
+      },
+      "body": {
+        "name": "ValidName",
+        "email": "valid-email@just.eat",
+        "password": "password",
+        "password_confirmation": "differentPassword"
+      }
+    },
+    {
+      "scenario": "client sends a password_confirmation different from the password",
+      "errors": {
+        "password": ["The password confirmation does not match."]
+      },
+      "body": {
+        "name": "ValidName",
+        "email": "valid-email@just.eat",
+        "password": "differentPassword",
+        "password_confirmation": "password"
+      }
+    },
+    {
+      "scenario": "client sends a password and a blank password_confirmation",
+      "errors": {
+        "password": ["The password confirmation does not match."]
+      },
+      "body": {
+        "name": "ValidName",
+        "email": "valid-email@just.eat",
+        "password": "password",
+        "password_confirmation": ""
+      }
+    },
+    {
+      "scenario": "client sends a password and does not the password_confirmation field",
+      "errors": {
+        "password": ["The password confirmation does not match."]
+      },
+      "body": {
+        "name": "ValidName",
+        "email": "valid-email@just.eat",
+        "password": "password"
+      }
+    },
+    {
+      "scenario": "client sends all fields with invalid data",
+      "errors": {
+        "name": [
+          "The name may only contain letters, numbers, dashes and underscores."
+        ],
+        "email": ["The email must be a valid email address."],
+        "password": [
+          "The password must be at least 8 characters.",
+          "The password confirmation does not match."
+        ]
+      },
+      "body": {
+        "name": "Invalid Name",
+        "email": "invalid..email@email.com",
+        "password": "p",
+        "password_confirmation": "differentPassword"
       }
     }
   ]

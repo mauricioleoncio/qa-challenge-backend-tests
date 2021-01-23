@@ -1,30 +1,16 @@
 const TASKS_ENV = Cypress.env("tasks-api");
 
 export class BaseHttpRequest {
-  post(url, requestBody, token, failOnStatusCode) {
-    const shouldFail =
-      typeof failOnStatusCode !== "undefined" ? failOnStatusCode : true;
-
-    return cy.request({
+  post(url, requestBody, failOnStatusCode, token) {
+    const options = {
       method: "POST",
       url: TASKS_ENV.baseUrl + url,
       body: requestBody,
-      auth: {
-        bearer: token,
-      },
-      failOnStatusCode: shouldFail,
-    });
-  }
+      failOnStatusCode: failOnStatusCode === true,
+    };
 
-  post(url, requestBody, failOnStatusCode) {
-    const shouldFail =
-      typeof failOnStatusCode !== "undefined" ? failOnStatusCode : true;
+    if (token) options.auth = { bearer: token };
 
-    return cy.request({
-      method: "POST",
-      url: TASKS_ENV.baseUrl + url,
-      body: requestBody,
-      failOnStatusCode: shouldFail,
-    });
+    return cy.request(options);
   }
 }
