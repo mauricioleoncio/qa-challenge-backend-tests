@@ -13,4 +13,16 @@ export class BaseHttpRequest {
 
     return cy.request(options);
   }
+
+  get(url, failOnStatusCode, token) {
+    const options = {
+      method: "GET",
+      url: TASKS_ENV.baseUrl + url,
+      failOnStatusCode: failOnStatusCode === true,
+    };
+
+    if (token) options.auth = { bearer: token };
+
+    return cy.request(options);
+  }
 }

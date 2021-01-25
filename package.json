@@ -4,7 +4,8 @@
   "description": "Just Eat QA Challenge",
   "main": "index.js",
   "scripts": {
-    "test": "cypress open"
+    "test": "cypress open",
+    "cypress:run": "cypress run"
   },
   "author": "Mauricio Leoncio dos Santos",
   "license": "ISC",

@@ -2,6 +2,20 @@
 
 # POST /api/v1/tasks
 
+# Happy flow
+Given the client had a valid bearer token
+And the client sends a valid title for tasks
+Then a task should be successfully created
+OK
+
+Given the client has a valid bearer token
+And the client sends a valid title for tasks
+Then a task should be successfully created
+When the client tries to GET the task list
+And the client has the same bearer token
+Then the response should list all the tasks related to that token/user
+
+
 #Unhappy flows
 
 Given the client sends a valid title for the task
@@ -27,7 +41,6 @@ But the client sends an token which will only be available in the future
 Then an error message "Unauthenticated." should be displayed
 And the status code must be 401
 OK
-
 
 Given the client send a request with a valid bearer token
 But client sends a blank title for the task

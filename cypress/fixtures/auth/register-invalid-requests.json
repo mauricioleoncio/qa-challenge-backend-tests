@@ -57,8 +57,8 @@
       "body": {
         "name": "ValidName",
         "email": "test@test.com",
-        "password": "4nak1n",
-        "password_confirmation": "4nak1n"
+        "password": "password",
+        "password_confirmation": "password"
       }
     },
     {
