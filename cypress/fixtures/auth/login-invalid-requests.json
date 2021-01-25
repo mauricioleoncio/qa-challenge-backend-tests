@@ -1,0 +1,73 @@
+{
+  "invalidRequests": [
+    {
+      "scenario": "client sends a valid e-mail with wrong password",
+      "errors": {
+        "email": ["These credentials do not match our records."]
+      },
+      "body": {
+        "email": "test@test.com",
+        "password": "v4der"
+      }
+    },
+    {
+      "scenario": "client sends an invalid e-mail",
+      "errors": {
+        "email": "Not In our system"
+      },
+      "body": {
+        "email": "thisisaninvalidemail@invalid.com",
+        "password": "v4der"
+      }
+    },
+    {
+      "scenario": "client send a blank email",
+      "errors": {
+        "email": ["The email field is required."]
+      },
+      "body": {
+        "email": "",
+        "password": "4nak1n"
+      }
+    },
+    {
+      "scenario": "client sends a blank password",
+      "errors": {
+        "password": ["The password field is required."]
+      },
+      "body": {
+        "email": "test@test.com",
+        "password": ""
+      }
+    },
+    {
+      "scenario": "client does not send the email field",
+      "errors": {
+        "email": ["The email field is required."]
+      },
+      "body": {
+        "password": "4nak1n"
+      }
+    },
+    {
+      "scenario": "client does not send the password field",
+      "errors": {
+        "password": ["The password field is required."]
+      },
+      "body": {
+        "email": "test@test.com"
+      }
+    },
+    {
+      "scenario": "client sends all fields in blank",
+      "errors": {
+        "email": ["The email field is required."],
+        "password": ["The password field is required."]
+      },
+      "body": {
+        "email": "",
+        "password": ""
+      }
+    }
+  ]
+}

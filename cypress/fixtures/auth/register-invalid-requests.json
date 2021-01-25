@@ -50,6 +50,18 @@
       }
     },
     {
+      "scenario": "client sends an email that alreay exists",
+      "errors": {
+        "email": ["The email already exists."]
+      },
+      "body": {
+        "name": "ValidName",
+        "email": "test@test.com",
+        "password": "4nak1n",
+        "password_confirmation": "4nak1n"
+      }
+    },
+    {
       "scenario": "client sends a blank email",
       "errors": {
         "email": ["The email field is required."]
@@ -117,6 +129,18 @@
         "email": "valid-email@just.eat",
         "password": "a",
         "password_confirmation": "a"
+      }
+    },
+    {
+      "scenario": "client sends a password with moren than 255 chars",
+      "errors": {
+        "password": ["The email may not be greater than 255 characters."]
+      },
+      "body": {
+        "name": "ValidName",
+        "email": "valid-email@just.eat",
+        "password": "fHYNCHgoY7iImxDqpQL9OeXrC9TvqmqzKHJfY4dm8i7pnBQN2oQiTyNbmZCdgiRLmwWPfTRFAz4Coezn6Xw5gmsE5vItQvpgE6HejYwU9rSyyDee0HWsshOWA1eU7ssRnf8SYszo3deSrPekZsoVQfXkcJfFRGUAOcJIQAIGeIedckCWf4Xce3FHGSgASASq525TPeh7wEB85gh1xtCH68Yi9cj8iIiqfupW8wMZTvR2hD1ZrvPUgZBYpLLs0Q3Q@justeat",
+        "password_confirmation": "fHYNCHgoY7iImxDqpQL9OeXrC9TvqmqzKHJfY4dm8i7pnBQN2oQiTyNbmZCdgiRLmwWPfTRFAz4Coezn6Xw5gmsE5vItQvpgE6HejYwU9rSyyDee0HWsshOWA1eU7ssRnf8SYszo3deSrPekZsoVQfXkcJfFRGUAOcJIQAIGeIedckCWf4Xce3FHGSgASASq525TPeh7wEB85gh1xtCH68Yi9cj8iIiqfupW8wMZTvR2hD1ZrvPUgZBYpLLs0Q3Q@justeat"
       }
     },
     {

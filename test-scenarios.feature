@@ -6,17 +6,21 @@
 Dado um usuário com credenciais válidas
 E usuário enviar requisição para o endpoint /auth/login
 Então um token válido deve ser retornado no corpo da resposta
+OK
 
 Dado que um usuário com dados validos
 Quando o usuário tenta se registrar
 E usuário enviar a requisição para o endpoint /auth/register
 Então ele deve ser registrado
 E um token válido deve ser retornado no corpo da resposta
+OK
 
+### Happy flow - /auth/register
 Dado que um usuário quer se registrar
 Quando ele informa um 'name' com <= 255 chars
 Então ele deve ser registrado
 E um token válido deve ser retornado no corpo da resposta
+OK
 
 Dado que um usuário quer se registrar
 Quando ele informa o 'email' com valor 'n@n'
@@ -27,7 +31,7 @@ E um token válido deve ser retornado no corpo da resposta
 Quando usuário tenta efetuar login com as credentiais cadastradas
 Então um token válido deve ser retornado no corpo da resposta
 # not in our system VS These credentials do not match our records.
-
+OK
 
 ### Unhappy flow - /auth/register
 
@@ -59,6 +63,8 @@ OK
 Dado que um usuário quer se registrar
 Quando ele informa um 'email' já registrado
 Então a aplicação deve retornar uma mensagem de erro informando que usuário já está registrado
+OK
+
 
 Dado que um usuário quer se registrar
 Quando ele informa um 'email' em branco
@@ -82,7 +88,7 @@ OK
 Dado que um usuário quer se registrar
 Quando ele informar um 'email' com characters inválido (https://stackoverflow.com/questions/2049502/what-characters-are-allowed-in-an-email-address) #criar regex
 Então a aplicação deve retornar mensagem de erro 'The email must be a valid email address.'
-
+OK
 
 ## PASSWORD FIELD ###
 Dado que um usuário quer se registrar
@@ -127,6 +133,7 @@ Dado que um usuário quer se registrar
 Quando ele informa um 'password' com > 255 chars
 Então a aplicação deve retornar mensagem de erro 'The password may not be greater than 255 characters.'
 ## Aplicação está aceitando infinitos valores (https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html)
+OK
 
 
 ### ALL FIELDS ###
