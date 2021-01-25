@@ -1,0 +1,20 @@
+{
+  "unauthorizedRequests": [
+    {
+      "scenario": "client sends a GET request to /tasks without authorization",
+      "message": "Unauthenticated."
+    },
+    {
+      "scenario": "client sends a request GET request to /tasks with an invalid JWT token",
+      "message": "Unauthenticated.",
+      "auth": "invalid_jwt_token"
+    }
+  ],
+  "expiredTokenRequest": {
+    "scenario": "client sends an expired JWT Token",
+    "message": "Unauthenticated.",
+    "body": {
+      "title": "The Death Star"
+    }
+  }
+}

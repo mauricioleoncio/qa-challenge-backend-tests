@@ -42,12 +42,30 @@ describe("Tasks API tests", function () {
           })
         );
       });
+
+      it("Should be possible to get all tasks related to the given user", function () {
+        tasksApi.getTasks(this.jwt.access_token).as("tasks");
+
+        cy.get("@tasks").should((res) => {
+          console.log(res);
+          res.body.data.forEach((data) => {
+            expect(data).to.have.property("id");
+            expect(data).to.have.property("title");
+            expect(data).to.have.property("due_at");
+            expect(data).to.have.property("is_completed");
+            expect(data.author.id).to.be.eq(this.jwt.user_id);
+            expect(data.author).to.have.property("name");
+            expect(data.author).to.have.property("email");
+          });
+        });
+      });
     });
 
     describe("Unhappy flows", function () {
-      const tasksFixture = require("../../fixtures/tasks/post-tasks-invalid-requests");
+      const postTasksFixture = require("../../fixtures/tasks/post-tasks-invalid-requests");
+      const getTasksFixture = require("../../fixtures/tasks/get-tasks-invalid-requests");
 
-      tasksFixture.unauthorizedRequests.forEach((req) => {
+      postTasksFixture.unauthorizedRequests.forEach((req) => {
         it(`Should fail when ${req.scenario}`, function () {
           tasksApi.createTask(req.body, req.auth, false).as("task");
           cy.get("@task").should((res) => {
@@ -57,7 +75,7 @@ describe("Tasks API tests", function () {
         });
       });
 
-      tasksFixture.invalidRequests.forEach((req) => {
+      postTasksFixture.invalidRequests.forEach((req) => {
         it(`Should fail when ${req.scenario}`, function () {
           tasksApi
             .createTask(req.body, this.jwt.access_token, false)
@@ -69,8 +87,38 @@ describe("Tasks API tests", function () {
         });
       });
 
-      it("Should fail when token is expired", function () {
-        const req = tasksFixture.expiredTokenRequest;
+      getTasksFixture.unauthorizedRequests.forEach((req) => {
+        it(`Should fail when ${req.scenario}`, function () {
+          tasksApi.getTasks(req.auth, false).as("task");
+          cy.get("@task").should((res) => {
+            expect(res.body.message).to.be.deep.eq(req.message);
+            expect(res.status).to.be.eq(401);
+          });
+        });
+      });
+
+      it("Should fail when client tries to GET /tasks and the token is expired", function () {
+        const req = getTasksFixture.expiredTokenRequest;
+        tasksApi.getTasks(expiresJWT(this.jwt.access_token), false).as("task");
+        cy.get("@task").should((res) => {
+          expect(res.body.message).to.be.deep.eq(req.message);
+          expect(res.status).to.be.eq(401);
+        });
+      });
+
+      it("Should fail when client tries to GET /tasks and sends a JWT Token which will be available in the future", function () {
+        const req = postTasksFixture.expiredTokenRequest;
+        tasksApi
+          .getTasks(tokenInTheFuture(this.jwt.access_token), false)
+          .as("task");
+        cy.get("@task").should((res) => {
+          expect(res.body.message).to.be.deep.eq(req.message);
+          expect(res.status).to.be.eq(401);
+        });
+      });
+
+      it("Should fail when  client tries to POST /tasks and the token is expired", function () {
+        const req = postTasksFixture.expiredTokenRequest;
         tasksApi
           .createTask(req.body, expiresJWT(this.jwt.access_token), false)
           .as("task");
@@ -80,8 +128,8 @@ describe("Tasks API tests", function () {
         });
       });
 
-      it("Should fail when client sends JWT Token which will be available in the future", function () {
-        const req = tasksFixture.expiredTokenRequest;
+      it("Should fail when client tries to POST /tasks and sends JWT Token which will be available in the future", function () {
+        const req = postTasksFixture.expiredTokenRequest;
         tasksApi
           .createTask(req.body, tokenInTheFuture(this.jwt.access_token), false)
           .as("task");
