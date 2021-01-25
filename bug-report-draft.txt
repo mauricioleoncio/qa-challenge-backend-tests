@@ -1,0 +1,7 @@
+# just a draft
+
+- Status code must be 401 when user cannot log in
+- Client still creating tasks after /logout
+- Password with more than 255 chars
+- Registering with the same email is allowed
+- Client still creating tasks even if the bearer token is expired
