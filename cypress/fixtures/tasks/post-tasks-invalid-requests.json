@@ -15,6 +15,15 @@
         "title": ["The title field is required."]
       },
       "body": {}
+    },
+    {
+      "scenario": "client sends a request with a title with more than 255 chars",
+      "errors": {
+        "title": ["The title may not be greater than 255 characters."]
+      },
+      "body": {
+        "title": "fHYNCHgoY7iImxDqpQL9OeXrC9TvqmqzKHJfY4dm8i7pnBQN2oQiTyNbmZCdgiRLmwWPfTRFAz4Coezn6Xw5gmsE5vItQvpgE6HejYwU9rSyyDee0HWsshOWA1eU7ssRnf8SYszo3deSrPekZsoVQfXkcJfFRGUAOcJIQAIGeIedckCWf4Xce3FHGSgASASq525TPeh7wEB85gh1xtCH68Yi9cj8iIiqfupW8wMZTvR2hD1ZrvPUgZBYpLLs0Q3Q"
+      }
     }
   ],
   "unauthorizedRequests": [
@@ -32,14 +41,13 @@
         "title": "The Death Star"
       },
       "auth": "invalid_jwt_token"
-    },
-    {
-        "scenario": "client sends an expired JWT Token",
-        "message": "Unauthenticated.",
-        "body": {
-          "title": "The Death Star"
-        },
-        "auth": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL3YxL2F1dGgvbG9naW4iLCJpYXQiOjE2MTE1OTk0NjUsImV4cCI6MTYxMTYwMzA2NSwibmJmIjoxNjExNTk5NDY1LCJqdGkiOiJ2ZnROeFEyRlVpVFV2c2lUIiwic3ViIjoxMDAxLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.eTum7oVJ1KnDSZAryzoCZ0kLV5U4ik-pJNpowMNRVIM"
-      }
-  ]
+    }
+  ],
+  "expiredTokenRequest": {
+    "scenario": "client sends an expired JWT Token",
+    "message": "Unauthenticated.",
+    "body": {
+      "title": "The Death Star"
+    }
+  }
 }

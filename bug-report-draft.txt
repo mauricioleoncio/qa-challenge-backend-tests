@@ -5,3 +5,4 @@
 - Password with more than 255 chars
 - Registering with the same email is allowed
 - Client still creating tasks even if the bearer token is expired
+- Client still creating tasks even if the bearer token is available only in the future
