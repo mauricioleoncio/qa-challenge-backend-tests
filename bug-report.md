@@ -105,6 +105,10 @@ Should not be possible to see another user task. This will be fixed when the **#
 
 Should not be possible to delete another user task. This will be fixed when the **#BUG-001** is fixed.
 
+**Notes**
+
+The same error occurs when trying to delete the task using a valid Bearer from an existing user
+
 ---
 
 🚩 **#BUG-004**: in `/tasks` - It's possible to manage tasks even after user has logged out
@@ -156,6 +160,37 @@ A friendly message should be displayed when a task is not found in database
 
 ---
 
+🚩 **#BUG-006**: in `/tasks/{{taskId}}` - Unhandled error message and wrong status code when requesting to get a task by id with different user
+
+**Steps to reproduce:**
+
+1. With a valid Bearer Token use the `POST /tasks` to create a new task
+
+2. Generate another Bearer Token with another user
+
+3. Try to `GET /tasks/{{taskId}}`
+
+**Expected Result:**
+A friendly message should be displayed and the error must be handled
+The response status code is 403 and the expected is 401
+
+---
+
+🚩 **#BUG-007**: in `DELETE /tasks/{{taskId}}` - It's possible to delete another user task
+
+**Steps to reproduce:**
+
+1. With a valid Bearer Token use the `POST /tasks` to create a new task
+
+2. Generate another Bearer Token with another user
+
+3. Try to `DETLETE /tasks/{{taskId}}` with the last generated token
+
+**Expected Result:**
+An unauthorized message should be displayed
+
+---
+
 💡 **#IMPROVEMENT-001**: in `/auth/register` - There's no characteres limit for the password & password_confirmation.
 
 Suggestion: Follow the [OWASP Proper Password Strength Controls](https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html) recommendations and set a maximum password lenght.
@@ -164,14 +199,16 @@ Suggestion: Follow the [OWASP Proper Password Strength Controls](https://cheatsh
 
 ---
 
-💡 **#IMPROVEMENT-002**: in `/auth/login` - the response status code should be 401 when user tries to log in with an invalid password and valid e-mail 
+💡 **#IMPROVEMENT-002**: in `/auth/login` - the response status code should be 401 when user tries to log in with an invalid password and valid e-mail
 
-Suggestions: 
+Suggestions:
+
 - Change the response status code when user tries to login with invalid credentials. Actual: 412 / Expected: 401
 
 ---
 
 💡 **#IMPROVEMENT-003**: in `/auth/login` - the response status code should be 401 when user tries to log in with an e-mail not registered
 
-Suggestions: 
+Suggestions:
+
 - Change the response status code when user tries to login with not registered e-mail. Actual: 418 / Expected: 401

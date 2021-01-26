@@ -8,13 +8,17 @@ Use the package manager [npm](https://www.npmjs.com/) to install the dependencie
 npm install
 ```
 
+**Note:** cypress@6.3.0 Requires Node version >= 10.0.0
+
 ---
 
 # Usage
 
-- Here you can found the tests scenarios for [tasks](test-scenarios/tasks-test-scenarios.md) and [auth](test-scenarios/auth-test-scenarios.md) endpoints.
-- To run the scenarios manually, I used the Postman app. Here you can found my [collection](postman-collection/justeat-challenge.postman_collection.json) and my [environment variables](justeat-challenge-local-envVars.postman_environment.json). Import both files to run manual tests. 
-- The bugs that I encontered can be found in this [file](bug-report.md)
+- Here you can found the tests scenarios artifact for [tasks](test-scenarios/tasks-test-scenarios.md) and [auth](test-scenarios/auth-test-scenarios.md) endpoints.
+- To run the scenarios manually, I used the Postman app. Here you can found my [collection](postman-collection/justeat-challenge.postman_collection.json) and my [environment variables](postman-collection/justeat-challenge-local-envVars.postman_environment.json). Import both files to run manual tests.
+- The bugs that I encontered can be found in the [bug report](bug-report.md)
+- There's a logic to expire the token in `cypress/support/jwt.js`
+- Time statistics regarding to test steps can be found on the generated report file
 
 ---
 
@@ -28,7 +32,11 @@ To run the backend tests use the command below:
 npm run test:backend
 ```
 
-The command above will trigger all the tests implemented for this challenge. Once it's done, another command will be triggered to generate and merge the reports, which will be found in `cypress/results/qa-challenge-report.html`.
+The command above will trigger all the tests implemented for this challenge. Once it's done, another command will be triggered to generate and merge the reports, which will be found in `cypress/results/qa-challenge-report.html`. I'm using [mochawesome](https://www.npmjs.com/package/mochawesome) reporter.
+
+Mochawesome Report Sample:
+
+![mochawesome-report-sample](mochawesome-report-sample.png)
 
 ---
 
@@ -99,9 +107,6 @@ In the example above I'm reading the fixtures and using all the invalid payloads
 
 ---
 
-## Comments 
-
-- Notice that there will be some failing tests, as reported in the bug list.
-
+## Comments
 
 ---

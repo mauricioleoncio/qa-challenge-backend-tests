@@ -25,4 +25,18 @@ export class BaseHttpRequest {
 
     return cy.request(options);
   }
+
+  delete(url, failOnStatusCode, token) {
+    const options = {
+      method: "DELETE",
+      url: TASKS_ENV.baseUrl + url,
+      failOnStatusCode: failOnStatusCode === true,
+    };
+
+    if (token) options.auth = { bearer: token };
+
+    return cy.request(options);
+  }
+
+
 }

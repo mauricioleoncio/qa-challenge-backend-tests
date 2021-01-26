@@ -35,7 +35,6 @@ describe("Auth API tests", function () {
     describe("Unhappy flows", function () {
       const loginFixture = require("../../fixtures/auth/login-invalid-requests");
 
-      //TODO status code 401
       loginFixture.invalidRequests.forEach((req) => {
         it(`Should fail when ${req.scenario}`, function () {
           authApi.getToken(req.body, false).as("login");

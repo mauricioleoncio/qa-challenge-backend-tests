@@ -47,15 +47,25 @@ describe("Tasks API tests", function () {
         tasksApi.getTasks(this.jwt.access_token).as("tasks");
 
         cy.get("@tasks").should((res) => {
-          console.log(res);
           res.body.data.forEach((data) => {
-            expect(data).to.have.property("id");
-            expect(data).to.have.property("title");
-            expect(data).to.have.property("due_at");
-            expect(data).to.have.property("is_completed");
             expect(data.author.id).to.be.eq(this.jwt.user_id);
-            expect(data.author).to.have.property("name");
-            expect(data.author).to.have.property("email");
+            getTasksContainsValidResponse(data);
+          });
+        });
+      });
+
+      it("Should be possible do delete a task by id which is related to the given user", function () {
+        const requestBody = taskValidRequestBody();
+
+        tasksApi.createTask(requestBody, this.jwt.access_token).as("task");
+
+        cy.get("@task").then((res) => {
+          tasksApi
+            .deleteTaskById(this.jwt.access_token, res.body.data.id)
+            .as("deletedTask");
+
+          cy.get("@deletedTask").should((res) => {
+            expect(res.status).to.be.eq(204);
           });
         });
       });
@@ -64,13 +74,13 @@ describe("Tasks API tests", function () {
     describe("Unhappy flows", function () {
       const postTasksFixture = require("../../fixtures/tasks/post-tasks-invalid-requests");
       const getTasksFixture = require("../../fixtures/tasks/get-tasks-invalid-requests");
+      const deleteTasksFixture = require("../../fixtures/tasks/delete-tasks-invalid-requests");
 
       postTasksFixture.unauthorizedRequests.forEach((req) => {
         it(`Should fail when ${req.scenario}`, function () {
           tasksApi.createTask(req.body, req.auth, false).as("task");
           cy.get("@task").should((res) => {
-            expect(res.body.message).to.be.deep.eq(req.message);
-            expect(res.status).to.be.eq(401);
+            isErrorDisplayedForUnauthorizedRequest(res, req);
           });
         });
       });
@@ -91,9 +101,36 @@ describe("Tasks API tests", function () {
         it(`Should fail when ${req.scenario}`, function () {
           tasksApi.getTasks(req.auth, false).as("task");
           cy.get("@task").should((res) => {
-            expect(res.body.message).to.be.deep.eq(req.message);
-            expect(res.status).to.be.eq(401);
+            isErrorDisplayedForUnauthorizedRequest(res, req);
           });
+        });
+      });
+
+      deleteTasksFixture.unauthorizedRequests.forEach((req) => {
+        it(`Should fail when ${req.scenario}`, function () {
+          tasksApi
+            .createTask(req.body, this.jwt.access_token, false)
+            .as("task");
+          cy.get("@task").then((res) => {
+            tasksApi
+              .deleteTaskById(req.auth, res.body.data.id)
+              .should((res2) => {
+                isErrorDisplayedForUnauthorizedRequest(res2, req);
+              });
+          });
+        });
+      });
+
+      it("Should fail when client tries to DELETE /tasks with an invalid task id", function () {
+        const req = deleteTasksFixture.invalidTaskIds;
+        tasksApi.createTask(req.body, this.jwt.access_token, false).as("task");
+        cy.get("@task").then(() => {
+          tasksApi
+            .deleteTaskById(this.jwt.access_token, req.taskId)
+            .should((res) => {
+              expect(res.status).to.be.eq(404);
+              expect(res.body.message).to.be.eq("Friendly response body");
+            });
         });
       });
 
@@ -138,8 +175,17 @@ describe("Tasks API tests", function () {
   });
 });
 
+function getTasksContainsValidResponse(data) {
+  expect(data.author).to.have.property("name") &&
+    expect(data.author).to.have.property("email") &&
+    expect(data).to.have.property("id") &&
+    expect(data).to.have.property("title") &&
+    expect(data).to.have.property("due_at") &&
+    expect(data).to.have.property("is_completed");
+}
+
 function isErrorDisplayedForUnauthorizedRequest(res, req) {
-  expect(res.body.erros).to.be.deep.eq(req.errors);
+  expect(res.body.message).to.be.deep.eq(req.message);
   expect(res.status).to.be.eq(401);
 }
 

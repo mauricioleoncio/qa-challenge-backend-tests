@@ -1,0 +1,30 @@
+{
+  "unauthorizedRequests": [
+    {
+      "scenario": "client sends a DELETE request without authorization",
+      "message": "Unauthenticated.",
+      "body": {
+        "title": "The Death Star"
+      }
+    },
+    {
+      "scenario": "client sends a DELETE request with an invalid JWT token",
+      "message": "Unauthenticated.",
+      "body": {
+        "title": "The Death Star"
+      },
+      "auth": "invalid_jwt_token"
+    }
+  ],
+  "invalidTaskIds": {
+    "scenario": "client sends an invalid task id",
+    "taskId": "invalid_id"
+  },
+  "expiredTokenRequest": {
+    "scenario": "client sends a DELETE with expired JWT Token",
+    "message": "Unauthenticated.",
+    "body": {
+      "title": "The Death Star"
+    }
+  }
+}
