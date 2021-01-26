@@ -101,8 +101,7 @@ describe("Tasks API tests", function () {
         const req = getTasksFixture.expiredTokenRequest;
         tasksApi.getTasks(expiresJWT(this.jwt.access_token), false).as("task");
         cy.get("@task").should((res) => {
-          expect(res.body.message).to.be.deep.eq(req.message);
-          expect(res.status).to.be.eq(401);
+          isErrorDisplayedForExpiredToken(res, req);
         });
       });
 
@@ -112,8 +111,7 @@ describe("Tasks API tests", function () {
           .getTasks(tokenInTheFuture(this.jwt.access_token), false)
           .as("task");
         cy.get("@task").should((res) => {
-          expect(res.body.message).to.be.deep.eq(req.message);
-          expect(res.status).to.be.eq(401);
+          isErrorDisplayedForExpiredToken(res, req);
         });
       });
 
@@ -123,8 +121,7 @@ describe("Tasks API tests", function () {
           .createTask(req.body, expiresJWT(this.jwt.access_token), false)
           .as("task");
         cy.get("@task").should((res) => {
-          expect(res.body.message).to.be.deep.eq(req.message);
-          expect(res.status).to.be.eq(401);
+          isErrorDisplayedForExpiredToken(res, req);
         });
       });
 
@@ -134,10 +131,19 @@ describe("Tasks API tests", function () {
           .createTask(req.body, tokenInTheFuture(this.jwt.access_token), false)
           .as("task");
         cy.get("@task").should((res) => {
-          expect(res.body.message).to.be.deep.eq(req.message);
-          expect(res.status).to.be.eq(401);
+          isErrorDisplayedForExpiredToken(res, req);
         });
       });
     });
   });
 });
+
+function isErrorDisplayedForUnauthorizedRequest(res, req) {
+  expect(res.body.erros).to.be.deep.eq(req.errors);
+  expect(res.status).to.be.eq(401);
+}
+
+function isErrorDisplayedForExpiredToken(res, req) {
+  expect(res.body.message).to.be.deep.eq(req.message) &&
+    expect(res.status).to.be.eq(401);
+}

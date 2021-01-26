@@ -10,7 +10,27 @@ npm install
 
 ---
 
-## Usage
+# Usage
+
+- Here you can found the tests scenarios for [tasks](test-scenarios/tasks-test-scenarios.md) and [auth](test-scenarios/auth-test-scenarios.md) endpoints.
+- To run the scenarios manually, I used the Postman app. Here you can found my [collection](postman-collection/justeat-challenge.postman_collection.json) and my [environment variables](justeat-challenge-local-envVars.postman_environment.json). Import both files to run manual tests. 
+- The bugs that I encontered can be found in this [file](bug-report.md)
+
+---
+
+## Running the Automated Tests
+
+First, make sure that you have an instance of `qa-challenge` running in your machine, on port 8000.
+
+To run the backend tests use the command below:
+
+```bash
+npm run test:backend
+```
+
+The command above will trigger all the tests implemented for this challenge. Once it's done, another command will be triggered to generate and merge the reports, which will be found in `cypress/results/qa-challenge-report.html`.
+
+---
 
 ## API Tests: Repo Structure and Approach
 
@@ -56,7 +76,7 @@ describe("Auth API tests", function () {
 }
 ```
 
-I'm creating an instance of `AuthApi` class to use it's `getToken()` method passing as parameter the requestBody from `fixture/auth.json`. Give it an alias to work with the response and make the assertions using `cy-spok`.
+In the example above I'm creating an instance of `AuthApi` class to use it's `getToken()` method passing as parameter the requestBody from `fixture/auth.json`. Give it an alias to work with the response and make the assertions using `cy-spok`.
 
 Another approach that I mentioned, using the Chai assertion:
 
@@ -77,25 +97,11 @@ describe("Unhappy flows", function () {
 
 In the example above I'm reading the fixtures and using all the invalid payloads that it contains, using chai to check if the endpoint response is deepEqual to the expected by the fixture.
 
-## Running the tests
-
-First, make sure that you have an instance of `qa-challenge` running in your machine, on port 8000.
-
-To run the backend tests use the command below:
-
-```bash
-npm run test:backend
-```
-
-This command above will trigger all the tests implemented for this challenge. Once it's done, another command will be triggered to generate and merge the reports, which will be found in `cypress/results/qa-challenge-report.html`.
-
-
+---
 
 ## Comments 
 
 - Notice that there will be some failing tests, as reported in the bug list.
 
-- Here you can found the tests scenarios for [tasks](test-scenarios/tasks-test-scenarios.md) and for [auth](test-scenarios/auth-test-scenarios.md) endpoints.
 
-- The bugs founded can be found this [file](bug-report.md)
 ---
