@@ -106,7 +106,3 @@ describe("Unhappy flows", function () {
 In the example above I'm reading the fixtures and using all the invalid payloads that it contains, using chai to check if the endpoint response is deepEqual to the expected by the fixture.
 
 ---
-
-## Comments
-
----
