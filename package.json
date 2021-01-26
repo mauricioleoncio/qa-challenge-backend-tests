@@ -4,8 +4,12 @@
   "description": "Just Eat QA Challenge",
   "main": "index.js",
   "scripts": {
-    "test": "cypress open",
-    "cypress:run": "cypress run"
+    "cypress:open": "cypress open",
+    "precypress:run": "rm -rf cypress/results/",
+    "cypress:run": "cypress run --reporter mochawesome || npm run postcypress:run",
+    "postcypress:run": "npm run merge-reports && npm run generate-html",
+    "merge-reports": "mochawesome-merge cypress/results/*.json > cypress/results/output.json",
+    "generate-html": "marge cypress/results/output.json --reportDir cypress/results/ --inline --reportFilename qa-challenge-report.html"
   },
   "author": "Mauricio Leoncio dos Santos",
   "license": "ISC",
@@ -13,6 +17,9 @@
     "cy-spok": "^1.3.2",
     "cypress": "^6.3.0",
     "faker": "^5.1.0",
-    "jsonwebtoken": "^8.5.1"
+    "jsonwebtoken": "^8.5.1",
+    "mocha": "^8.2.1",
+    "mochawesome": "^6.2.1",
+    "mochawesome-merge": "^4.2.0"
   }
 }

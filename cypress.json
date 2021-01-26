@@ -1,1 +1,11 @@
-{}
+{
+  "video": false,
+  "reporter": "mochawesome",
+  "reporterOptions": {
+    "reportDir": "cypress/results",
+    "charts": true,
+    "overwrite": false,
+    "html": false,
+    "json": true
+  }
+}
