@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "cypress:open": "cypress open",
-    "precypress:run": "rm -rf cypress/results/",
-    "cypress:run": "cypress run --reporter mochawesome || npm run postcypress:run",
-    "postcypress:run": "npm run merge-reports && npm run generate-html",
+    "pretest:backend": "rm -rf cypress/results/",
+    "test:backend": "cypress run --reporter mochawesome || npm run generate-reports",
+    "generate-reports": "npm run merge-reports && npm run generate-html",
     "merge-reports": "mochawesome-merge cypress/results/*.json > cypress/results/output.json",
     "generate-html": "marge cypress/results/output.json --reportDir cypress/results/ --inline --reportFilename qa-challenge-report.html"
   },
