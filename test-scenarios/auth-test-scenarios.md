@@ -6,6 +6,8 @@
 > - Then a valid token should be on the response
 > - And the status code should be 201
 
+## Unhappy Flow /auth/login
+
 > - Given the client sends a valid e-mail with wrong password
 > - Then an error message "These credentials do not match our records.." should be displayed
 

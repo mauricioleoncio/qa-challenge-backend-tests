@@ -14,9 +14,9 @@ npm install
 
 # Usage
 
-- Here you can found the tests scenarios artifact for [tasks](test-scenarios/tasks-test-scenarios.md) and [auth](test-scenarios/auth-test-scenarios.md) endpoints.
-- To run the scenarios manually, I used the Postman app. Here you can found my [collection](postman-collection/justeat-challenge.postman_collection.json) and my [environment variables](postman-collection/justeat-challenge-local-envVars.postman_environment.json). Import both files to run manual tests.
-- The bugs that I encontered can be found in the [bug report](bug-report.md)
+- Here you can find the tests scenarios artifact for [tasks](test-scenarios/tasks-test-scenarios.md) and [auth](test-scenarios/auth-test-scenarios.md) endpoints.
+- To run the scenarios manually, I used the Postman app. Here you can find my [collection](postman-collection/justeat-challenge.postman_collection.json) and my [environment variables](postman-collection/justeat-challenge-local-envVars.postman_environment.json). Import both files to run manual tests.
+- The bugs that I encountered can be found in the [bug report](bug-report.md)
 - There's a logic to expire the token in `cypress/support/jwt.js`
 - Time statistics regarding to test steps can be found on the generated report file
 
@@ -24,7 +24,7 @@ npm install
 
 ## Running the Automated Tests
 
-First, make sure that you have an instance of `qa-challenge` running in your machine, on port 8000.
+First, make sure that you have an instance of `qa-challenge` running in your machine on port 8000.
 
 To run the backend tests use the command below:
 
